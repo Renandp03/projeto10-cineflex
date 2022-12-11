@@ -2,7 +2,7 @@ import styled from "styled-components"
 import axios from "axios"
 import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
-
+import Footer from "./Footer"
 
 
 export default function Sessions(){
@@ -15,30 +15,45 @@ export default function Sessions(){
     },[])
 
     console.log(listSessions)
+    
 
-
+    if(listSessions.days!= undefined){
     return(
         <>
         <TitlePage><h1>Selecione o horário</h1></TitlePage>
         <Screen>
-            <li><Session/></li>
+           {listSessions.days.map((s)=><li><Session info = {s}/></li>)}
         </Screen>
+        <Footer title={listSessions.title} poster={listSessions.posterURL}/>
         </>
-    )
+        )
+    }
+    else{
+        return(
+            <img src="assets/loading.gif"/>
+        )
+    }
+
 }
 
 function Session(props){
+
+   const {info} = props
+    const buttons = info.showtimes
+
     return(
         <>
         <DaySession>
-            <p>{props.DaySession} - data</p>
-            <button>15:00</button>
-            <button>17:00</button>
+            <p>{info.weekday} - {info.date}</p>
+            {buttons.map((t)=> <Link to={`seats/${t.id}`}><button>{t.name}</button></Link>)}
+            
         </DaySession>
         
         </>
     )
 }
+
+
 
 const TitlePage = styled.div`
     h1{

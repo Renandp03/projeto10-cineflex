@@ -1,8 +1,9 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function Navbar(){
     return(
-        <Title><p>CINEFLEX</p></Title>
+        <Link to="/"><Title><p>CINEFLEX</p></Title></Link>
     )
 }
 
