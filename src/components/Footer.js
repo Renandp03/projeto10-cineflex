@@ -1,12 +1,15 @@
 import styled from "styled-components"
 
 export default function Footer(props){
-    const { title, poster} = props
+    const { title, poster, session} = props
 
     return(
         <StyledFooter>
             <Poster><img src={poster}/></Poster>
-            <p>{title}</p>
+            <div>
+                <p>{title}</p>
+                <p>{session}</p>
+            </div>
         </StyledFooter>
     )
 }

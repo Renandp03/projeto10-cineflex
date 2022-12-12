@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import axios from "axios"
-import { useParams, Link, Navigate } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Footer from "./Footer"
 
@@ -14,23 +14,40 @@ export default function Seats(){
     const [selecteds, setSelecteds] = useState([])  
     const [ nome, setNome ] = useState("")
     const [ CPF, setCPF] = useState("")
+    const navigate = useNavigate()
 
     useEffect(()=> {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${sessionId}/seats`)
         promise.then(response => setListSeats(response.data))
 
     },[])
-    console.log(listSeats)
-
-    function finalize(){
-        const request = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
-            {ids:selecteds, name:nome,cpf:CPF}
-        )
-        request.then(()=> Navigate("/"))
-    }
-
-
+   
+    
+   
     if(listSeats.seats!=undefined){
+        const title = listSeats.movie.title
+        const poster = listSeats.movie.posterURL
+        const weekday = listSeats.day.weekday
+        const time = listSeats.name
+        const date = listSeats.movie.releaseDate.substring(0,10)
+        
+
+        function finalize(event){
+
+            event.preventDefault()
+            let listIds=[]
+            let listNumbers=[]
+            for(let i=0;i<selecteds.length;i++){
+                listIds.push(selecteds[i].id)
+                listNumbers.push(selecteds[i].number)
+            }
+            
+            const request = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
+                {ids:listIds, name:nome,cpf:CPF}
+            )
+            request.then(()=> navigate(`/success/${nome}+${CPF}+${date}+${time}+${title}+${listNumbers}`))
+        }
+
          return(
         <>
         <TitlePage><h1>Selecione o(s) assento(s)</h1></TitlePage>
@@ -51,17 +68,21 @@ export default function Seats(){
                 <Example><SeatAvailable selected={false}/><p>Disponível</p></Example>
                 <Example><SeatUnavailable/><p>Indisponível</p></Example>
             </Subtitle>
-            <Dados>
-                <p>Nome do Comprador:</p>
-                <input onChange={e=> setNome(e.target.value)} type="text" required placeholder="Digite seu nome..."></input>
-            </Dados>
-            <Dados>
-                <p>CPF do Comprador:</p>
-                <input onChange={e=> setCPF(e.target.value)} type="number" required placeholder="Digite seu CPF..."></input>
-            </Dados>
-            <button onClick={finalize} type="submit">Reservar assento(s)</button>
+            <form onSubmit={finalize}>
+                <Dados>
+                    <p>Nome do Comprador:</p>
+                    <input onChange={e=> setNome(e.target.value)} type="text" placeholder="Digite seu nome..."></input>
+                </Dados>
+                <Dados>
+                    <p>CPF do Comprador:</p>
+                    <input onChange={e=> setCPF(e.target.value)} type="number" placeholder="Digite seu CPF..."></input>
+                </Dados>
+                <button onClick={finalize} type="submit">Reservar assento(s)</button>
+            </form>
         </Screen>
-        <Footer title={listSeats.movie.title} poster={listSeats.movie.posterURL}/>
+        <Footer session={`${weekday} - ${time}`}
+        title={title}
+        poster={poster}/>
         </>
     )
     }
@@ -74,13 +95,13 @@ function Seat(props){
     function select(){
         if(selected){
             setSelected(false)
-            setSelecteds(selecteds.filter(n => (n!=id)))
-            console.log(selecteds.filter(n => (n!=id)))
+            setSelecteds(selecteds.filter(n => n.id!=id))
+           
         }
         else{
             setSelected(true)
-            setSelecteds([...selecteds,id])
-            console.log([...selecteds,id])
+            setSelecteds([...selecteds,{id:id,number:number}])
+            
         }
     }     
 
