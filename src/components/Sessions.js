@@ -19,17 +19,13 @@ export default function Sessions(){
         <>
         <TitlePage><h1>Selecione o horário</h1></TitlePage>
         <Screen>
-           {listSessions.days.map((s)=><li><Session info = {s}/></li>)}
+           {listSessions.days.map((s)=><li><Session data-test="movie-day" info = {s}/></li>)}
         </Screen>
-        <Footer title={listSessions.title} poster={listSessions.posterURL}/>
+        <Footer data-test="footer" title={listSessions.title} poster={listSessions.posterURL}/>
         </>
         )
     }
-    else{
-        return(
-            <img src="assets/loading.gif"/>
-        )
-    }
+  
 
 }
 
@@ -42,7 +38,7 @@ function Session(props){
         <>
         <DaySession>
             <p>{info.weekday} - {info.date}</p>
-            {buttons.map((t)=> <Link to={`/seats/${t.id}`}><button>{t.name}</button></Link>)}
+            {buttons.map((t)=> <Link to={`/seats/${t.id}`}><button data-test="showtime">{t.name}</button></Link>)}
             
         </DaySession>
         

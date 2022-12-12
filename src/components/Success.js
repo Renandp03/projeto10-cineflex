@@ -6,27 +6,28 @@ export default function Success(){
     const { name, cpf, seats, date, time, title} = useParams()
     console.log(seats)
     let numbers = seats.split(",")
-    console.log(numbers)
+    let newDate = date.split("-")
+   
 
     return(
         <>
         <TitlePage><h1>Pedido feito com sucesso!</h1></TitlePage>
         <Screen>
-            <Information>
+            <Information data-test="movie-info">
                 <h2>Filme e sessão</h2>
                 <p>{title}</p>
-                <p>{date} - {time}</p>
+                <p>{newDate.join("/")} - {time}</p>
             </Information>
-            <Information>
+            <Information data-test="seats-info">
                 <h2>Ingressos</h2>
                 {numbers.map((s)=> <p key={s}>{`Assento ${s}`}</p>)}
             </Information>
-            <Information>
+            <Information data-test="client-info">
                 <h2>Comprador</h2>
-                <p>{name}</p>
-                <p>{cpf}</p>
+                <p>Nome: {name}</p>
+                <p>CPF: {cpf}</p>
             </Information>
-            <Link to="/"><button>Voltar pra Home</button></Link>
+            <Link to="/"><button data-test="go-home-btn">Voltar pra Home</button></Link>
         </Screen>
         </>
     )
@@ -52,6 +53,7 @@ const Information = styled.div`
     width: 325px;
     color: #293845;
     margin-bottom: 50px;
+    margin-left: 42px;
     h2{
         font-weight: 700;
         font-size: 24px;

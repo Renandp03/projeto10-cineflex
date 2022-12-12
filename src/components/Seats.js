@@ -56,6 +56,7 @@ export default function Seats(){
             <Room>
                 {listSeats.seats.map((s)=>
                     <Seat 
+                    data-test="seat"
                     id = {s.id}
                     selecteds={selecteds}
                     setSelecteds={setSelecteds}
@@ -71,16 +72,18 @@ export default function Seats(){
             <form onSubmit={finalize}>
                 <Dados>
                     <p>Nome do Comprador:</p>
-                    <input onChange={e=> setNome(e.target.value)} type="text" placeholder="Digite seu nome..."></input>
+                    <input data-test="client-name" onChange={e=> setNome(e.target.value)} type="text" placeholder="Digite seu nome..."></input>
                 </Dados>
                 <Dados>
                     <p>CPF do Comprador:</p>
-                    <input onChange={e=> setCPF(e.target.value)} type="number" placeholder="Digite seu CPF..."></input>
+                    <input data-test="client-cpf" onChange={e=> setCPF(e.target.value)} maxLength="14" type="number" placeholder="Digite seu CPF..."></input>
                 </Dados>
-                <button onClick={finalize} type="submit">Reservar assento(s)</button>
+                <button data-test="book-seat-btn" onClick={finalize} type="submit">Reservar assento(s)</button>
             </form>
         </Screen>
-        <Footer session={`${weekday} - ${time}`}
+        <Footer
+        data-test="footer"
+        session={`${weekday} - ${time}`}
         title={title}
         poster={poster}/>
         </>

@@ -10,17 +10,25 @@ export default function Movies(){
 
     useEffect(()=>{const promise = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
         promise.then( response => setListMovies(response.data))},[])
-        
-    return(
+       if(listMovies.length!=0){
+        return(
         <>
         <TitlePage><h1>Selecione o filme</h1></TitlePage>
         
            <Catalogo>
-                {listMovies.map((m) =><li><Link to={`/sessions/${m.id}`}><Movie image={m.posterURL} title={m.title}/></Link></li>)}
+                {listMovies.map((m) =><li><Link to={`/sessions/${m.id}`}><Movie data-test="movie" image={m.posterURL} title={m.title}/></Link></li>)}
            </Catalogo>
         
         </>
-    )
+         )
+       } 
+       else{return(
+        <ForImg>
+        <img src="assets/loading.gif"/>
+        </ForImg>
+       )}
+    
+   
 }
 
 const TitlePage = styled.div`
@@ -68,3 +76,13 @@ const Poster = styled.div`
         height: 193px;
     }
 `
+
+const ForImg = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        margin-top: 200px;
+        width: 200px;
+    }
+` 
