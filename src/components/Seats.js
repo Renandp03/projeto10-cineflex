@@ -11,7 +11,7 @@ export default function Seats(){
 
     const { sessionId } = useParams()
     const [listSeats, setListSeats] = useState([])
-    const [selecteds, setSelecteds] = useState([])
+    const [selecteds, setSelecteds] = useState([])  
 
     useEffect(()=> {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${sessionId}/seats`)
@@ -35,9 +35,13 @@ export default function Seats(){
                     isAvailable={s.isAvailable} 
                     key={s.id} 
                     number={s.name}/>)}
-                <SeatSelected/>
-                <SeatUnavailable/>
             </Room>
+            <Subtitle>
+                <Example><SeatAvailable selected={true}/><p>Selecionado</p></Example>
+                <Example><SeatAvailable selected={false}/><p>Disponível</p></Example>
+                <Example><SeatUnavailable/><p>Indisponível</p></Example>
+            </Subtitle>
+            
         </Screen>
         </>
     )
@@ -47,17 +51,31 @@ export default function Seats(){
 
 
 function Seat(props){
-    
+  
+    function select(){
+        if(selected){
+            setSelected(false)
+        }
+        else{setSelected(true)}
+    }     
+
     const { number, isAvailable } = props
+    const [selected,setSelected] = useState(false)
 
     if(isAvailable){
          return(
-         <SeatAvailable><p>{number}</p></SeatAvailable>
+         <SeatAvailable 
+         selected={selected}
+          onClick={select} >
+            <p>{number}</p>
+        </SeatAvailable>
     )
     }
     else{
         return(
-            <SeatUnavailable><p>{number}</p></SeatUnavailable>
+            <SeatUnavailable>
+                <p>{number}</p>
+            </SeatUnavailable>
         )
     }   
 
@@ -65,34 +83,36 @@ function Seat(props){
 }
 
 
-
 const SeatAvailable = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid #808F9D;
-    border-radius: 100%;
-    background-color: #C3CFD9;
-    margin: 7px;
-    p{
-        font-size: 11px;
-    }
+display: flex;
+justify-content: center;
+align-items: center;
+width: 26px;
+height: 26px;
+border: 1px solid ${props=> props.selected ? "#0E7D71" : "#808F9D"};
+border-radius: 100%;
+background-color: ${props=> props.selected ? "#1AAE9E" : "#C3CFD9"};
+margin: 7px;
+p{
+    font-size: 11px;
+}
 `
 
-const SeatSelected = styled.div`
+
+const Subtitle = styled.div`
     display: flex;
+    justify-content: space-between;
+    max-width: 450px;
+`
+const Example = styled.div`
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid #0E7D71;
-    border-radius: 100%;
-    background-color: #1AAE9E;
-    margin: 7px;
+    margin: 0px 30px;
     p{
-        font-size: 11px;
+        font-size: 13px;
+        color: #4E5A65;
     }
 `
 
@@ -117,6 +137,8 @@ const SeatUnavailable = styled.div`
 const Screen = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `
 
 const Room = styled.div`
