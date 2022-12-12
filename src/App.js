@@ -16,8 +16,9 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path='/'element={<Movies/>}/>
-        <Route path='/seats/:movieId' element={<Seats/>}/>
         <Route path='/sessions/:movieId' element={<Sessions/>}/>
+        <Route path='/seats/:sessionId' element={<Seats/>}/>
+        
       </Routes>
     </BrowserRouter>
   );

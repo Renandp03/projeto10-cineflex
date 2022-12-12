@@ -10,15 +10,13 @@ export default function Movies(){
 
     useEffect(()=>{const promise = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
         promise.then( response => setListMovies(response.data))},[])
-        console.log(listMovies)
         
-
     return(
         <>
         <TitlePage><h1>Selecione o filme</h1></TitlePage>
         
            <Catalogo>
-                {listMovies.map((m) =><li><Link to={`/sessions/${m.id}`}><Movie  id={m.id} image={m.posterURL} title={m.title}/></Link></li>)}
+                {listMovies.map((m) =><li><Link to={`/sessions/${m.id}`}><Movie image={m.posterURL} title={m.title}/></Link></li>)}
            </Catalogo>
         
         </>
@@ -39,7 +37,7 @@ const TitlePage = styled.div`
 `
 
 function Movie(props){
-    const { movieId } = useParams()
+    
     return(
         <Poster>
             <img src={props.image} alt={props.title}/>

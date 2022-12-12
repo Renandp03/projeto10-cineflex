@@ -13,10 +13,7 @@ export default function Sessions(){
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`)
         promise.then(response => setListSessions(response.data))
     },[])
-
-    console.log(listSessions)
     
-
     if(listSessions.days!= undefined){
     return(
         <>
@@ -37,7 +34,7 @@ export default function Sessions(){
 }
 
 function Session(props){
-
+    const { movieId } = useParams()
    const {info} = props
     const buttons = info.showtimes
 
@@ -45,7 +42,7 @@ function Session(props){
         <>
         <DaySession>
             <p>{info.weekday} - {info.date}</p>
-            {buttons.map((t)=> <Link to={`seats/${t.id}`}><button>{t.name}</button></Link>)}
+            {buttons.map((t)=> <Link to={`/seats/${t.id}`}><button>{t.name}</button></Link>)}
             
         </DaySession>
         
