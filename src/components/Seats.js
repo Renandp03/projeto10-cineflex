@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import axios from "axios"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, Navigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-
+import Footer from "./Footer"
 
 
 
@@ -12,6 +12,8 @@ export default function Seats(){
     const { sessionId } = useParams()
     const [listSeats, setListSeats] = useState([])
     const [selecteds, setSelecteds] = useState([])  
+    const [ nome, setNome ] = useState("")
+    const [ CPF, setCPF] = useState("")
 
     useEffect(()=> {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${sessionId}/seats`)
@@ -20,7 +22,12 @@ export default function Seats(){
     },[])
     console.log(listSeats)
 
-
+    function finalize(){
+        const request = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
+            {ids:selecteds, name:nome,cpf:CPF}
+        )
+        request.then(()=> Navigate("/"))
+    }
 
 
     if(listSeats.seats!=undefined){
@@ -32,6 +39,9 @@ export default function Seats(){
             <Room>
                 {listSeats.seats.map((s)=>
                     <Seat 
+                    id = {s.id}
+                    selecteds={selecteds}
+                    setSelecteds={setSelecteds}
                     isAvailable={s.isAvailable} 
                     key={s.id} 
                     number={s.name}/>)}
@@ -41,8 +51,17 @@ export default function Seats(){
                 <Example><SeatAvailable selected={false}/><p>Disponível</p></Example>
                 <Example><SeatUnavailable/><p>Indisponível</p></Example>
             </Subtitle>
-            
+            <Dados>
+                <p>Nome do Comprador:</p>
+                <input onChange={e=> setNome(e.target.value)} type="text" required placeholder="Digite seu nome..."></input>
+            </Dados>
+            <Dados>
+                <p>CPF do Comprador:</p>
+                <input onChange={e=> setCPF(e.target.value)} type="number" required placeholder="Digite seu CPF..."></input>
+            </Dados>
+            <button onClick={finalize} type="submit">Reservar assento(s)</button>
         </Screen>
+        <Footer title={listSeats.movie.title} poster={listSeats.movie.posterURL}/>
         </>
     )
     }
@@ -55,11 +74,17 @@ function Seat(props){
     function select(){
         if(selected){
             setSelected(false)
+            setSelecteds(selecteds.filter(n => (n!=id)))
+            console.log(selecteds.filter(n => (n!=id)))
         }
-        else{setSelected(true)}
+        else{
+            setSelected(true)
+            setSelecteds([...selecteds,id])
+            console.log([...selecteds,id])
+        }
     }     
 
-    const { number, isAvailable } = props
+    const { number, isAvailable,selecteds,setSelecteds, id } = props
     const [selected,setSelected] = useState(false)
 
     if(isAvailable){
@@ -81,8 +106,6 @@ function Seat(props){
 
     
 }
-
-
 const SeatAvailable = styled.div`
 display: flex;
 justify-content: center;
@@ -97,12 +120,11 @@ p{
     font-size: 11px;
 }
 `
-
-
 const Subtitle = styled.div`
     display: flex;
     justify-content: space-between;
     max-width: 450px;
+    margin-bottom: 35px;
 `
 const Example = styled.div`
     display: flex;
@@ -115,8 +137,6 @@ const Example = styled.div`
         color: #4E5A65;
     }
 `
-
-
 const SeatUnavailable = styled.div`
     display: flex;
     justify-content: center;
@@ -131,16 +151,41 @@ const SeatUnavailable = styled.div`
         font-size: 11px;
     }
 `
-
-
-
+const Dados = styled.div`
+margin: 7px;
+    p{
+        font-size: 18px;
+        color: #293845;
+        align-self: start;
+        margin: 3px 0px;
+    }
+    input{
+        width: 372px;
+        height: 51px;
+        border: 1px solid #D4D4D4;
+        border-radius: 3px;
+    }
+    input::placeholder{
+        font-size: 18px;
+        color: #AFAFAF;
+    }
+`
 const Screen = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    button{
+        width: 225px;
+        height: 42px;
+        font-size: 18px;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        background-color: #E8833A;
+        margin: 50px;
+    }
 `
-
 const Room = styled.div`
     display: flex;
     justify-content: center;
@@ -148,7 +193,6 @@ const Room = styled.div`
     flex-wrap: wrap;
     max-width: 450px;
 `
-
 const TitlePage = styled.div`
     h1{
         color: #293845;
