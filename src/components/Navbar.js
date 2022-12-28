@@ -19,6 +19,7 @@ const Title = styled.div`
     left: 0px;
     p{
         font-size: 34px;
+        font-weight: 700;
         color: #E8833A;
     }
 `

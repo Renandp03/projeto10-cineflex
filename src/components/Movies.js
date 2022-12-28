@@ -14,10 +14,11 @@ export default function Movies(){
         return(
         <>
         <TitlePage><h1>Selecione o filme</h1></TitlePage>
-        
+        <Screen>
            <Catalogo>
                 {listMovies.map((m) =><li><Link to={`/sessions/${m.id}`}><Movie data-test="movie" image={m.posterURL} title={m.title}/></Link></li>)}
            </Catalogo>
+        </Screen>
         
         </>
          )
@@ -30,6 +31,10 @@ export default function Movies(){
     
    
 }
+const Screen = styled.div`
+    display: flex;
+    justify-content: center;
+`
 
 const TitlePage = styled.div`
     h1{
@@ -48,13 +53,15 @@ function Movie(props){
     
     return(
         <Poster>
-            <img src={props.image} alt={props.title}/>
+            <div>
+                <img src={props.image} alt={props.title}/>
+            </div>
         </Poster>
     )
 }
 
 const Catalogo = styled.ul`
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -63,14 +70,31 @@ const Catalogo = styled.ul`
 
 
 const Poster = styled.div`
+    width: 194px;
+    height: 247px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 145px;
-    height: 209px;
-    border-radius: 3px;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-    margin: 11px 38px;
+    position: relative;
+
+    div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 145px;
+        height: 209px;
+        border-radius: 3px;
+        box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top:11px;
+        left: 38px;
+        transition: all linear .2s;
+        /* margin: 11px 38px; */
+        &:hover{
+            top:5px;
+            
+        }
+    }
     img{
         width: 129px;
         height: 193px;
