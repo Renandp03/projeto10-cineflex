@@ -47,6 +47,7 @@ table {
 body{
     font-family: 'Roboto', sans-serif;
 	margin: 69px 0px 117px 0px;
+	background-color: #44647B;
 }
 `
 

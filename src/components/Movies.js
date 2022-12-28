@@ -83,6 +83,7 @@ const Poster = styled.div`
         align-items: center;
         width: 145px;
         height: 209px;
+        background-color: #F5F5F5;
         border-radius: 3px;
         box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
         position: absolute;

@@ -17,9 +17,10 @@ const Title = styled.div`
     position: fixed;
     top: 0px;
     left: 0px;
+    z-index: 1;
     p{
         font-size: 34px;
         font-weight: 700;
-        color: #E8833A;
+        color: #E5740B;
     }
 `
