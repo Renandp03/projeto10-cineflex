@@ -6,12 +6,10 @@ export default function Success(props){
     const { name, CPF, seatsOn, date, time, title} = props
     let numbers = String(seatsOn).split(",")
     let newDate = date.split("-")
-   
-    console.log(name)
 
     return(
         <>
-        <TitlePage><h1>Pedido feito com sucesso!</h1></TitlePage>
+        <TitlePage>Pedido feito com sucesso!<img src="assets/ok.gif" alt="ok"/></TitlePage>
         <Screen>
             <Information data-test="movie-info">
                 <h2>Filme e sessão</h2>
@@ -35,8 +33,8 @@ export default function Success(props){
 
 
 const TitlePage = styled.div`
-    h1{
-        color: #247A6B;
+    
+        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -44,6 +42,10 @@ const TitlePage = styled.div`
         font-size: 24px;
         font-weight: 700;
         text-align: center;
+    
+    img{
+        height: 24px;
+        margin-left: 15px;
     }
 `
 const Information = styled.div`
@@ -57,10 +59,12 @@ const Information = styled.div`
     h2{
         font-weight: 700;
         font-size: 24px;
+        color: #042741;
     }
     p{
         font-size: 22px;
         line-height: 25px;
+        color: white;
     }
 
 `

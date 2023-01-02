@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 export default function Navbar(){
     return(
-        <Link to="/"><Title><p>CINEFLEX</p></Title></Link>
+        <Link to="/"><Title><img src="assets/Logo.svg"/><p>CINEFLEX</p></Title></Link>
     )
 }
 
@@ -23,5 +23,9 @@ const Title = styled.div`
         font-size: 34px;
         font-weight: 700;
         color: #EA6A22;
+    }
+    img{
+        width: 34px;
+        margin-right: 15px;
     }
 `

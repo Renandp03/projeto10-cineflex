@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 export default function Movies(){
 
     const [listMovies,setListMovies] = useState([])
-    
+  
 
     useEffect(()=>{const promise = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
         promise.then( response => setListMovies(response.data))},[])
@@ -16,7 +16,8 @@ export default function Movies(){
         <TitlePage><h1>Selecione o filme</h1></TitlePage>
         <Screen>
            <Catalogo>
-                {listMovies.map((m) =><li><Link to={`/sessions/${m.id}`}><Movie data-test="movie" image={m.posterURL} title={m.title}/></Link></li>)}
+                {listMovies.map((m) =>
+                <li><Link to={`/sessions/${m.id}`}><Movie data-test="movie" image={m.posterURL} key={m.id} title={m.title} /></Link></li>)}
            </Catalogo>
         </Screen>
         
@@ -52,11 +53,11 @@ const TitlePage = styled.div`
 `
 
 function Movie(props){
-    
+    const {image, title} = props 
     return(
         <Poster>
             <div>
-                <img src={props.image} alt={props.title}/>
+                <img src={image} alt={title}/>
             </div>
         </Poster>
     )
@@ -72,7 +73,7 @@ const Catalogo = styled.ul`
 
 
 const Poster = styled.div`
-    width: 194px;
+    width: 190px;
     height: 247px;
     display: flex;
     justify-content: center;
