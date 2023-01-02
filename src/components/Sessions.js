@@ -48,14 +48,17 @@ function Session(props){
 
 
 
+
 const TitlePage = styled.div`
     h1{
-        color: #293845;
+        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
         height: 110px;
+        font-weight: 700;
+        letter-spacing: 2px;
         font-size: 24px;
         text-align: center;
     }
@@ -66,7 +69,7 @@ const DaySession = styled.div`
     margin: 24px;
     p{
         font-size: 20px;
-        color: #293845;
+        color: white;
     }
     button{
         font-size: 18px;
@@ -74,7 +77,7 @@ const DaySession = styled.div`
         height: 43px;
         margin: 23px 8px 22px 0px;
         color: white;
-        background-color: #E8833A;
+        background-color: #EA6A22;
         border: none;
         border-radius: 3px;
     }

@@ -10,7 +10,8 @@ export default function Navbar(){
 const Title = styled.div`
     width: 100%;
     height: 67px;
-    background-color: #C3CFD9;
+    font-weight: 700;
+    background-color: #042741;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +22,6 @@ const Title = styled.div`
     p{
         font-size: 34px;
         font-weight: 700;
-        color: #E5740B;
+        color: #EA6A22;
     }
 `

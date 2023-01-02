@@ -38,12 +38,14 @@ const Screen = styled.div`
 
 const TitlePage = styled.div`
     h1{
-        color: #293845;
+        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
         height: 110px;
+        font-weight: 700;
+        letter-spacing: 2px;
         font-size: 24px;
         text-align: center;
     }
@@ -90,9 +92,9 @@ const Poster = styled.div`
         top:11px;
         left: 38px;
         transition: all linear .2s;
-        /* margin: 11px 38px; */
         &:hover{
             top:5px;
+            box-shadow: 0px 0px 4px 2px rgba(238, 93, 11, 1);
             
         }
     }
@@ -107,7 +109,7 @@ const ForImg = styled.div`
     justify-content: center;
     align-items: center;
     img{
-        margin-top: 200px;
-        width: 200px;
+        margin-top: 300px;
+        width: 20px;
     }
 ` 

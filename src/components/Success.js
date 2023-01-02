@@ -1,13 +1,13 @@
 import styled from "styled-components"
 import { Link, useParams } from "react-router-dom"
 
-export default function Success(){
+export default function Success(props){
 
-    const { name, cpf, seats, date, time, title} = useParams()
-    console.log(seats)
-    let numbers = seats.split(",")
+    const { name, CPF, seatsOn, date, time, title} = props
+    let numbers = String(seatsOn).split(",")
     let newDate = date.split("-")
    
+    console.log(name)
 
     return(
         <>
@@ -24,10 +24,10 @@ export default function Success(){
             </Information>
             <Information data-test="client-info">
                 <h2>Comprador</h2>
-                <p>Nome: {name}</p>
-                <p>CPF: {cpf}</p>
+                <p>Nome:{name==="" ? " Não definido" : name}</p>
+                <p>CPF:{CPF==="" ? " Não definido" : CPF}</p>
             </Information>
-            <Link to="/"><button data-test="go-home-btn">Voltar pra Home</button></Link>
+            <Link to="/"><button data-test="go-home-btn">Voltar para Home</button></Link>
         </Screen>
         </>
     )
@@ -76,7 +76,7 @@ const Screen = styled.div`
         color: white;
         border: none;
         border-radius: 3px;
-        background-color: #E8833A;
+        background-color: #EA6A22;
         margin: 25px;
     }
 `

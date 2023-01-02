@@ -19,13 +19,13 @@ const StyledFooter = styled.div`
     height: 117px;
     display: flex;
     align-items: center;
-    background-color: #9EADBA;
+    background-color: #042741;
     position: fixed;
     bottom: 0px;
     left: 0px;
     p{
         font-size: 26px;
-        color: #293845;
+        color: white;
     }
 
 `

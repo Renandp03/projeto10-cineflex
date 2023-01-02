@@ -1,19 +1,19 @@
 import styled from "styled-components"
 import axios from "axios"
-import { useParams, Link, useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Footer from "./Footer"
 
 
 
 
-export default function Seats(){
+export default function Seats(props){
+    const {name, setName, CPF, setCPF, seatsOn, setSeatsOn, setTime, setDate, setWeekday, setMovieName} = props
 
     const { sessionId } = useParams()
     const [listSeats, setListSeats] = useState([])
     const [selecteds, setSelecteds] = useState([])  
-    const [ nome, setNome ] = useState("")
-    const [ CPF, setCPF] = useState("")
+    
     const navigate = useNavigate()
 
     useEffect(()=> {
@@ -33,8 +33,19 @@ export default function Seats(){
         
 
         function finalize(event){
-
             event.preventDefault()
+            
+            if(selecteds.length===0){
+                alert("escolha ao menos um assento")
+            }
+            else{
+            
+
+            setMovieName(title)
+            setWeekday(weekday)
+            setTime(time)
+            setDate(date)
+
             let listIds=[]
             let listNumbers=[]
             for(let i=0;i<selecteds.length;i++){
@@ -42,10 +53,13 @@ export default function Seats(){
                 listNumbers.push(selecteds[i].number)
             }
             
+            setSeatsOn(listNumbers)
+            
             const request = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
-                {ids:listIds, name:nome,cpf:CPF}
+                {ids:listIds, name:name,cpf:CPF}
             )
-            request.then(()=> navigate(`/success/${nome}+${CPF}+${date}+${time}+${title}+${listNumbers}`))
+            request.then(()=> navigate(`/success`))
+        }
         }
 
          return(
@@ -69,17 +83,17 @@ export default function Seats(){
                 <Example><SeatAvailable selected={false}/><p>Disponível</p></Example>
                 <Example><SeatUnavailable/><p>Indisponível</p></Example>
             </Subtitle>
-            <form onSubmit={finalize}>
+            <Form onSubmit={finalize}>
                 <Dados>
                     <p>Nome do Comprador:</p>
-                    <input data-test="client-name" onChange={e=> setNome(e.target.value)} type="text" placeholder="Digite seu nome..."></input>
+                    <input data-test="client-name" onChange={e=> setName(e.target.value)} type="text" placeholder="Digite seu nome..."></input>
                 </Dados>
                 <Dados>
                     <p>CPF do Comprador:</p>
                     <input data-test="client-cpf" onChange={e=> setCPF(e.target.value)} maxLength="14" type="number" placeholder="Digite seu CPF..."></input>
                 </Dados>
-                <button data-test="book-seat-btn" onClick={finalize} type="submit">Reservar assento(s)</button>
-            </form>
+                <div><button data-test="book-seat-btn" onClick={finalize} type="submit">Reservar assento(s)</button></div>
+            </Form>
         </Screen>
         <Footer
         data-test="footer"
@@ -158,7 +172,7 @@ const Example = styled.div`
     margin: 0px 30px;
     p{
         font-size: 13px;
-        color: #4E5A65;
+        color: white;
     }
 `
 const SeatUnavailable = styled.div`
@@ -206,7 +220,7 @@ const Screen = styled.div`
         color: white;
         border: none;
         border-radius: 3px;
-        background-color: #E8833A;
+        background-color: #EA6A22;
         margin: 50px;
     }
 `
@@ -219,7 +233,9 @@ const Room = styled.div`
 `
 const TitlePage = styled.div`
     h1{
-        color: #293845;
+        color: white;
+        letter-spacing: 2px;
+        font-weight: 700;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -228,4 +244,15 @@ const TitlePage = styled.div`
         font-size: 24px;
         text-align: center;
     }
+`
+
+const Form = styled.form`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    p{
+        color: #042741;
+    }
+
 `
