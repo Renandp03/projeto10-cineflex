@@ -154,6 +154,7 @@ border: 1px solid ${props=> props.selected ? "#0E7D71" : "#808F9D"};
 border-radius: 100%;
 background-color: ${props=> props.selected ? "#1AAE9E" : "#C3CFD9"};
 margin: 7px;
+cursor: pointer;
 p{
     font-size: 11px;
 }
@@ -185,6 +186,7 @@ const SeatUnavailable = styled.div`
     border-radius: 100%;
     background-color: #FBE192;
     margin: 7px;
+    cursor: default;
     p{
         font-size: 11px;
     }

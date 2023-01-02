@@ -80,6 +80,7 @@ const DaySession = styled.div`
         background-color: #EA6A22;
         border: none;
         border-radius: 3px;
+        cursor:pointer;
     }
 
 `

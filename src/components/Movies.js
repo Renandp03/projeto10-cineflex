@@ -73,7 +73,7 @@ const Catalogo = styled.ul`
 
 
 const Poster = styled.div`
-    width: 190px;
+    width: 170px;
     height: 247px;
     display: flex;
     justify-content: center;
@@ -93,6 +93,7 @@ const Poster = styled.div`
         top:11px;
         left: 38px;
         transition: all linear .2s;
+        cursor:pointer;
         &:hover{
             top:5px;
             box-shadow: 0px 0px 4px 2px rgba(238, 93, 11, 1);

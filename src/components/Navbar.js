@@ -19,6 +19,10 @@ const Title = styled.div`
     top: 0px;
     left: 0px;
     z-index: 1;
+    transition: all linear .3s; 
+    &:hover{
+          height: 72px;
+    }
     p{
         font-size: 34px;
         font-weight: 700;

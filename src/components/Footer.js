@@ -23,6 +23,10 @@ const StyledFooter = styled.div`
     position: fixed;
     bottom: 0px;
     left: 0px;
+    transition: all linear 0.3s;
+    &:hover{
+        height: 123px;
+    }
     p{
         font-size: 26px;
         color: white;
