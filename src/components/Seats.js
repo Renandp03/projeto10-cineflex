@@ -192,7 +192,7 @@ const SeatUnavailable = styled.div`
     }
 `
 const Dados = styled.div`
-margin: 7px;
+    margin: 7px;
     p{
         font-size: 18px;
         color: #293845;
@@ -202,8 +202,12 @@ margin: 7px;
     input{
         width: 372px;
         height: 51px;
+        font-size: 18px;
+        color: #293845;
         border: 1px solid #D4D4D4;
         border-radius: 3px;
+        padding: 0px 11px;
+        box-sizing: border-box;
     }
     input::placeholder{
         font-size: 18px;
