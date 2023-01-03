@@ -150,9 +150,9 @@ justify-content: center;
 align-items: center;
 width: 26px;
 height: 26px;
-border: 1px solid ${props=> props.selected ? "#0E7D71" : "#808F9D"};
+border: 1px solid ${props=> props.selected ? "#0E7D71" : "#F7C52B"};
 border-radius: 100%;
-background-color: ${props=> props.selected ? "#1AAE9E" : "#C3CFD9"};
+background-color: ${props=> props.selected ? "#1AAE9E" : "#FBE192"};
 margin: 7px;
 cursor: pointer;
 p{
@@ -182,9 +182,9 @@ const SeatUnavailable = styled.div`
     align-items: center;
     width: 26px;
     height: 26px;
-    border: 1px solid #F7C52B;
+    border: 1px solid #808F9D;
     border-radius: 100%;
-    background-color: #FBE192;
+    background-color: #C3CFD9;
     margin: 7px;
     cursor: default;
     p{
@@ -195,7 +195,7 @@ const Dados = styled.div`
     margin: 7px;
     p{
         font-size: 18px;
-        color: #293845;
+        color: white;
         align-self: start;
         margin: 3px 0px;
     }
@@ -203,15 +203,16 @@ const Dados = styled.div`
         width: 372px;
         height: 51px;
         font-size: 18px;
-        color: #293845;
+        color: #042741;
         border: 1px solid #D4D4D4;
         border-radius: 3px;
         padding: 0px 11px;
+        background-color: #F0F0F0;
         box-sizing: border-box;
     }
     input::placeholder{
         font-size: 18px;
-        color: #AFAFAF;
+        color: #042741;
     }
 `
 const Screen = styled.div`
@@ -257,8 +258,6 @@ const Form = styled.form`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    p{
-        color: #042741;
-    }
+    
 
 `

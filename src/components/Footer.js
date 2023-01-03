@@ -7,7 +7,7 @@ export default function Footer(props){
         <StyledFooter>
             <Poster><img src={poster}/></Poster>
             <div>
-                <p>{title}</p>
+                <h2>{title}</h2>
                 <p>{session}</p>
             </div>
         </StyledFooter>
@@ -27,8 +27,13 @@ const StyledFooter = styled.div`
     &:hover{
         height: 123px;
     }
-    p{
+    h2{
         font-size: 26px;
+        color: white;
+    }
+    p{
+        margin-top: 10px;
+        font-size: 20px;
         color: white;
     }
 
